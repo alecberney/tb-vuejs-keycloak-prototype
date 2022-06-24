@@ -22,3 +22,11 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+## .env
+
+```
+VUE_APP_CLOAK_URL=
+VUE_APP_CLOAK_REALM=
+VUE_APP_CLOAK_CLIENT_ID=
+```
