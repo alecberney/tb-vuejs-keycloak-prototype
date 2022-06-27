@@ -13,13 +13,15 @@
     <div v-for="(value, name) in decodedJwt" v-bind:key="(value)">
       {{ name }}: {{ value }}
     </div>
-    <h3>Resource access</h3>
-    <p v-if="resource_access==null">test</p>
-    <p>{{ resource_access }}</p>
+    <h3> Request return message</h3>
+    <p v-if="error"> {{ error.message }} </p>
+    <p v-else> {{ response }} </p>
   </div>
 </template>
 
 <script>
+import { apiRequest } from '@/apicalls'
+
 export default {
   name: "LoginData",
   props: {
@@ -30,6 +32,22 @@ export default {
     jwt: String,
     decodedJwt: Object,
     resource_access: Object,
+  },
+  data() {
+    return {
+      error: null,
+      response: null
+    }
+  },
+  beforeMount() {
+    //this.$cookies.set('token', this.jwt);
+    apiRequest(this.jwt)
+        .then(response => {
+          this.response = response.data;
+        })
+        .catch(error => {
+          this.error = error;
+        })
   }
 }
 </script>
